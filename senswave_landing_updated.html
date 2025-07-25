@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senswave | Next-Gen Textile Factory Monitoring</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        .equipment-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .dashboard-preview {
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 10px solid white;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+                transform: scale(1);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(99, 102, 241, 0);
+                transform: scale(1.05);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+                transform: scale(1);
+            }
+        }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(165, 180, 252, 0.7);
+        }
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .stats-counter {
+            transition: all 0.3s ease-out;
+        }
+        .rotate-3d {
+            transform: rotateY(15deg);
+        }
+        .feature-icon {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover .feature-icon {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%) !important;
+            color: white !important;
+        }
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="relative">
+                            <div class="absolute -inset-1 bg-indigo-600/50 rounded-full blur-sm"></div>
+                            <div class="relative bg-indigo-600 text-white p-2 rounded-full">
+                                <i class="fas fa-industry text-xl"></i>
+                            </div>
+                        </div>
+                        <span class="text-xl font-bold text-indigo-600 ml-3">Senswave<span class="text-indigo-400">Pro</span></span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="#features" class="text-gray-900 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors duration-300">Features</a>
+                    <a href="#how-it-works" class="text-gray-900 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors duration-300">How It Works</a>
+                    <a href="#benefits" class="text-gray-900 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors duration-300">Benefits</a>
+                    <a href="#pricing" class="text-gray-900 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors duration-300">Pricing</a>
+                    <a href="#contact" class="text-gray-900 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors duration-300">Contact</a>
+                </div>
+                <div class="flex items-center">
+                    <button class="relative group">
+                        <div class="absolute -inset-0.5 bg-indigo-600/50 rounded-lg blur-sm group-hover:blur-md transition duration-300"></div>
+                        <div class="relative bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300">
+                            Request Demo
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-28 pb-16 md:pt-36 md:pb-24 gradient-bg text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="md:w-1/2 mb-12 md:mb-0 relative z-10">
+                    <div class="absolute -left-8 -top-8 h-32 w-32 bg-indigo-500/20 rounded-full blur-xl"></div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 glow-text">
+                        Revolutionizing <span class="text-indigo-200">Textile Production</span> with IoT
+                    </h1>
+                    <p class="text-xl mb-8 text-indigo-100 max-w-lg">
+                        Get real-time insights, predictive maintenance and data-driven efficiency with Senswave’s smart factory platform.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <button class="relative group">
+                            <div class="absolute -inset-0.5 bg-white/30 rounded-lg blur-sm group-hover:blur-md transition duration-300"></div>
+                            <div class="relative bg-white hover:bg-gray-100 text-indigo-600 px-6 py-3 rounded-lg font-semibold text-lg shadow-lg transition duration-300 flex items-center">
+                                Get Started Today <i class="fas fa-arrow-right ml-2"></i>
+                            </div>
+                        </button>
+                        <button class="relative group border-2 border-white hover:bg-white hover:text-indigo-600 px-6 py-3 rounded-lg font-semibold text-lg transition duration-300 flex items-center">
+                            <div class="absolute -inset-0.5 bg-white/20 rounded-lg blur-sm group-hover:blur-md transition duration-300"></div>
+                            <span class="relative">Watch Demo</span> <i class="fas fa-play ml-2 relative"></i>
+                        </button>
+                    </div>
+                    <div class="mt-8 flex items-center space-x-4">
+                        <div class="flex -space-x-2">
+                            <img class="h-10 w-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/12.jpg" alt="User 1">
+                            <img class="h-10 w-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User 2">
+                            <img class="h-10 w-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/44.jpg" alt="User 3">
+                        </div>
+                        <div>
+                            <p class="text-sm text-indigo-200">Trusted by <span class="font-semibold">500+</span> textile manufacturers</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative">
+                    <div class="dashboard-preview overflow-hidden rotate-3d floating">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Factory Dashboard" class="w-full h-auto rounded-lg">
+                        <div class="absolute -bottom-4 -right-4 bg-white p-3 rounded-full shadow-xl pulse-animation">
+                            <i class="fas fa-bell text-indigo-600 text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-10 -left-10 h-40 w-40 bg-indigo-500/20 rounded-full blur-xl"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted By Section -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-center text-gray-500 text-sm font-semibold uppercase tracking-wide mb-8">Trusted by industry leaders</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+                <div class="flex justify-center items-center opacity-70 hover:opacity-100 transition-opacity duration-300">
+                    <img src="https://via.placeholder.com/150x60?text=TexFiber+Inc" alt="TexFiber Inc" class="h-12">
+                </div>
+                <div class="flex justify-center items-center opacity-70 hover:opacity-100 transition-opacity duration-300">
+                    <img src="https://via.placeholder.com/150x60?text=WeaveTech" alt="WeaveTech" class="h-12">
+                </div>
+                <div class="flex justify-center items-center opacity-70 hover:opacity-100 transition-opacity duration-300">
+                    <img src="https://via.placeholder.com/150x60?text=StitchPro" alt="StitchPro" class="h-12">
+                </div>
+                <div class="flex justify-center items-center opacity-70 hover:opacity-100 transition-opacity duration-300">
+                    <img src="https://via.placeholder.com/150x60?text=FabricMaster" alt="FabricMaster" class="h-12">
+                </div>
+                <div class="flex justify-center items-center opacity-70 hover:opacity-100 transition-opacity duration-300">
+                    <img src="https://via.placeholder.com/150x60?text=YarnWorks" alt="YarnWorks" class="h-12">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm font-semibold mb-4">FEATURES</span>
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Smart Monitoring <span class="text-indigo-600">Capabilities</span>
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    Comprehensive IoT solutions tailored for textile manufacturing equipment
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg equipment-card transition duration-300 feature-card">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 mb-6 feature-icon">
+                        <i class="fas fa-chart-line text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-3">Production Performance</h3>
+                    <p class="text-gray-500">
+                        Suivi en direct des taux de production par ligne et par lot.
+                    </p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded">Live Updates</span>
+                        <span class="inline-block bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded ml-2">Custom Metrics</span>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg equipment-card transition duration-300 feature-card">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 mb-6 feature-icon">
+                        <i class="fas fa-tools text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-3">Entretien Prédictif</h3>
+                    <p class="text-gray-500">
+                        Alertes intelligentes avant panne pour éviter les arrêts.
+                    </p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded">AI Alerts</span>
+                        <span class="inline-block bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded ml-2">Failure Prediction</span>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg equipment-card transition duration-300 feature-card">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 mb-6 feature-icon">
+                        <i class="fas fa-bolt text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-3">Suivi de la Consommation Énergétique</h3>
+                    <p class="text-gray-500">
+                        Identifie les machines énergivores et optimise les coûts.
+                    </p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded">Cost Savings</span>
+                        <span class="inline-block bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded ml-2">Efficiency</span>
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg equipment-card transition duration-300 feature-card">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 mb-6 feature-icon">
+                        <i class="fas fa-robot text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-3">Rapports Automatisés</h3>
+                    <p class="text-gray-500">
+                        Génération de rapports qualité / production / maintenance.
+                    </p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded">PDF/Excel</span>
+                        <span class="inline-block bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded ml-2">Scheduled</span>
+                    </div>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg equipment-card transition duration-300 feature-card">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 mb-6 feature-icon">
+                        <i class="fas fa-mobile-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-3">Alertes Mobiles en Temps Réel</h3>
+                    <p class="text-gray-500">
+                        Notifications critiques sur smartphone / tablette.
+                    </p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded">Push Notifications</span>
+                        <span class="inline-block bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded ml-2">SMS Alerts</span>
+                    </div>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg equipment-card transition duration-300 feature-card">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 mb-6 feature-icon">
+                        <i class="fas fa-project-diagram text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-3">Intégration ERP/MES</h3>
+                    <p class="text-gray-500">
+                        Connexion fluide avec votre système de gestion existant.
+                    </p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded">API Access</span>
+                        <span class="inline-block bg-indigo-50 text-indigo-600 text-xs px-2 py-1 rounded ml-2">Plugins</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm font-semibold mb-4">HOW IT WORKS</span>
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Simple <span class="text-indigo-600">Implementation</span>
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    Get up and running with Senswave in just a few steps
+                </p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-10 lg:mb-0">
+                    <div class="relative">
+                        <div class="absolute -left-8 -top-8 h-32 w-32 bg-indigo-100 rounded-full opacity-50 z-0"></div>
+                        <div class="relative z-10">
+                            <div class="flex space-x-4 mb-4">
+                                <button onclick="changeTab(1)" class="tab-button active px-4 py-2 bg-indigo-600 text-white rounded-lg">Step 1</button>
+                                <button onclick="changeTab(2)" class="tab-button px-4 py-2 bg-gray-200 text-gray-700 rounded-lg">Step 2</button>
+                                <button onclick="changeTab(3)" class="tab-button px-4 py-2 bg-gray-200 text-gray-700 rounded-lg">Step 3</button>
+                                <button onclick="changeTab(4)" class="tab-button px-4 py-2 bg-gray-200 text-gray-700 rounded-lg">Step 4</button>
+                            </div>
+                            
+                            <div class="tab-content active" id="tab1">
+                                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Textile Factory Monitoring" class="rounded-lg shadow-xl w-full">
+                            </div>
+                            <div class="tab-content" id="tab2">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Data Collection" class="rounded-lg shadow-xl w-full">
+                            </div>
+                            <div class="tab-content" id="tab3">
+                                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80" alt="AI Analysis" class="rounded-lg shadow-xl w-full">
+                            </div>
+                            <div class="tab-content" id="tab4">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Actionable Insights" class="rounded-lg shadow-xl w-full">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 lg:pl-12">
+                    <div class="space-y-8">
+                        <!-- Step 1 -->
+                        <div class="flex" id="step1">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-600 text-white">
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-900">Install IoT Sensors</h4>
+                                <p class="mt-2 text-gray-500">
+                                    Our technicians install non-invasive sensors on your textile machines to monitor vibration, temperature, power consumption, and more.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="flex opacity-70" id="step2">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-300 text-gray-600">
+                                    <span class="text-xl font-bold">2</span>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-700">Data Collection</h4>
+                                <p class="mt-2 text-gray-500">
+                                    Sensors transmit data to our secure cloud platform via industrial-grade gateways with 99.9% uptime.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="flex opacity-70" id="step3">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-300 text-gray-600">
+                                    <span class="text-xl font-bold">3</span>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-700">AI Analysis</h4>
+                                <p class="mt-2 text-gray-500">
+                                    Our proprietary algorithms analyze equipment patterns to detect anomalies and predict failures before they occur.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="flex opacity-70" id="step4">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-300 text-gray-600">
+                                    <span class="text-xl font-bold">4</span>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-700">Actionable Insights</h4>
+                                <p class="mt-2 text-gray-500">
+                                    Receive clear recommendations through our dashboard or mobile app to optimize your operations.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 bg-indigo-50 rounded-xl p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-headset text-indigo-600 text-3xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium text-gray-900">Need help with installation?</h4>
+                                <p class="mt-1 text-gray-600">
+                                    Our certified technicians can handle the entire setup process for you.
+                                </p>
+                                <button class="mt-3 text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
+                                    Contact Support <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-indigo-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <!-- Stat 1 -->
+                <div class="p-6">
+                    <div class="text-5xl font-bold mb-2 stats-counter" data-target="500">0</div>
+                    <p class="text-indigo-200">Piloté dans 12+ usines textiles</p>
+                </div>
+                <!-- Stat 2 -->
+                <div class="p-6">
+                    <div class="text-5xl font-bold mb-2 stats-counter" data-target="47">0</div>
+                    <p class="text-indigo-200">Avg. Downtime Reduction</p>
+                </div>
+                <!-- Stat 3 -->
+                <div class="p-6">
+                    <div class="text-5xl font-bold mb-2 stats-counter" data-target="99.9">0</div>
+                    <p class="text-indigo-200">System Uptime</p>
+                </div>
+                <!-- Stat 4 -->
+                <div class="p-6">
+                    <div class="text-5xl font-bold mb-2 stats-counter" data-target="24">0</div>
+                    <p class="text-indigo-200">Support Response (hours)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm font-semibold mb-4">BENEFITS</span>
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Transform Your <span class="text-indigo-600">Operations</span>
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    Measurable improvements for your textile manufacturing
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Benefit 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 text-green-600 mb-4">
+                        <i class="fas fa-clock text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2"><span class="counter" data-target="30">0</span>-<span class="counter" data-target="50">0</span>%</h3>
+                    <p class="text-gray-500">Reduction in equipment downtime</p>
+                    <div class="mt-4 h-1 w-full bg-gray-200 rounded-full">
+                        <div class="h-1 bg-green-500 rounded-full" style="width: 70%"></div>
+                    </div>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 text-blue-600 mb-4">
+                        <i class="fas fa-bolt text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2"><span class="counter" data-target="15">0</span>-<span class="counter" data-target="25">0</span>%</h3>
+                    <p class="text-gray-500">Energy cost savings</p>
+                    <div class="mt-4 h-1 w-full bg-gray-200 rounded-full">
+                        <div class="h-1 bg-blue-500 rounded-full" style="width: 60%"></div>
+                    </div>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-purple-100 text-purple-600 mb-4">
+                        <i class="fas fa-chart-pie text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2"><span class="counter" data-target="20">0</span>-<span class="counter" data-target="40">0</span>%</h3>
+                    <p class="text-gray-500">Increase in production efficiency</p>
+                    <div class="mt-4 h-1 w-full bg-gray-200 rounded-full">
+                        <div class="h-1 bg-purple-500 rounded-full" style="width: 65%"></div>
+                    </div>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 text-red-600 mb-4">
+                        <i class="fas fa-wrench text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2"><span class="counter" data-target="25">0</span>-<span class="counter" data-target="35">0</span>%</h3>
+                    <p class="text-gray-500">Lower maintenance costs</p>
+                    <div class="mt-4 h-1 w-full bg-gray-200 rounded-full">
+                        <div class="h-1 bg-red-500 rounded-full" style="width: 55%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-8 md:p-12 text-white">
+                <div class="md:flex items-center">
+                    <div class="md:w-2/3">
+                        <h3 class="text-2xl font-bold mb-4">Ready to see Senswave in action?</h3>
+                        <p class="text-indigo-100">
+                            Schedule a personalized demo to see how our IoT monitoring system can transform your textile factory operations.
+                        </p>
+                    </div>
+                    <div class="md:w-1/3 mt-6 md:mt-0 md:text-right">
+                        <button class="bg-white hover:bg-gray-100 text-indigo-600 px-6 py-3 rounded-lg font-semibold text-lg shadow-lg transition duration-300 w-full md:w-auto">
+                            Book a Demo <i class="fas fa-calendar-alt ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-900 text-white parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1513828583688-c52646db42da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block bg-indigo-600/20 text-indigo-400 px-3 py-1 rounded-full text-sm font-semibold mb-4">TESTIMONIALS</span>
+                <h2 class="text-3xl font-extrabold sm:text-4xl">
+                    Success <span class="text-indigo-400">Stories</span>
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-300 mx-auto">
+                    Hear from textile manufacturers who transformed their operations
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-800/90 backdrop-blur-sm p-8 rounded-xl hover:bg-gray-800 transition duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="flex-shrink-0">
+                            <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Sarah Johnson">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-medium">Sarah Johnson</h4>
+                            <p class="text-indigo-300">Operations Manager, TexFiber Inc</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">
+                        "Senswave's predictive maintenance system helped us reduce unplanned downtime by 47% in the first six months. The ROI was evident almost immediately."
+                    </p>
+                    <div class="mt-4 flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-800/90 backdrop-blur-sm p-8 rounded-xl hover:bg-gray-800 transition duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="flex-shrink-0">
+                            <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Raj Patel">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-medium">Raj Patel</h4>
+                            <p class="text-indigo-300">CTO, WeaveTech</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">
+                        "The energy optimization features alone paid for the system within 9 months. We've expanded Senswave to all three of our factories after seeing the results."
+                    </p>
+                    <div class="mt-4 flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <button class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                    Read More Case Studies <i class="fas fa-book-open ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm font-semibold mb-4">PRICING</span>
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Flexible <span class="text-indigo-600">Plans</span>
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    Choose the plan that fits your factory's needs
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Basic Plan -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="px-6 py-8">
+                        <h3 class="text-lg font-medium text-gray-900">Starter</h3>
+                        <p class="mt-2 text-gray-500">For small textile units</p>
+                        <div class="mt-6">
+                            <p class="text-4xl font-extrabold text-gray-900">$499</p>
+                            <p class="mt-2 text-gray-500">per month</p>
+                        </div>
+                        <ul class="mt-8 space-y-3">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">Up to 10 machines</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">Basic monitoring</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">Email alerts</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-gray-400">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <p class="ml-3 text-gray-500">Predictive maintenance</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-gray-400">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <p class="ml-3 text-gray-500">Energy optimization</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <button class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition duration-300">
+                            Get Started
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Popular Plan -->
+                <div class="bg-white rounded-xl shadow-xl ring-2 ring-indigo-600 overflow-hidden transform scale-105 z-10">
+                    <div class="px-6 py-8">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-900">Professional</h3>
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Most Popular</span>
+                        </div>
+                        <p class="mt-2 text-gray-500">For medium textile factories</p>
+                        <div class="mt-6">
+                            <p class="text-4xl font-extrabold text-gray-900">$1,299</p>
+                            <p class="mt-2 text-gray-500">per month</p>
+                        </div>
+                        <ul class="mt-8 space-y-3">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">Up to 50 machines</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">Advanced monitoring</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">SMS & Email alerts</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">Predictive maintenance</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">Basic energy reports</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300">
+                            Get Started
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="px-6 py-8">
+                        <h3 class="text-lg font-medium text-gray-900">Enterprise</h3>
+                        <p class="mt-2 text-gray-500">For large textile manufacturers</p>
+                        <div class="mt-6">
+                            <p class="text-4xl font-extrabold text-gray-900">Custom</p>
+                            <p class="mt-2 text-gray-500">Tailored solution</p>
+                        </div>
+                        <ul class="mt-8 space-y-3">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">Unlimited machines</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">Premium monitoring</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">24/7 Priority support</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">AI-powered analytics</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-gray-700">Full energy optimization</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <button class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition duration-300">
+                            Contact Sales
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-gray-50 rounded-xl p-8">
+                <div class="md:flex items-center">
+                    <div class="md:w-3/4">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Not sure which plan is right for you?</h3>
+                        <p class="text-gray-600">
+                            Our textile industry experts can help you choose the perfect solution for your factory's specific needs and budget.
+                        </p>
+                    </div>
+                    <div class="md:w-1/4 mt-6 md:mt-0 md:text-right">
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium w-full md:w-auto">
+                            <i class="fas fa-comments mr-2"></i> Chat with Expert
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm font-semibold mb-4">FAQS</span>
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Common <span class="text-indigo-600">Questions</span>
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    Everything you need to know about Senswave
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg">
+                        <button class="w-full flex justify-between items-center p-6 focus:outline-none" onclick="toggleFAQ(1)">
+                            <h3 class="text-lg font-medium text-gray-900 text-left">What types of textile machines can Senswave monitor?</h3>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300" id="faq-icon-1"></i>
+                        </button>
+                        <div class="px-6 pb-6 hidden" id="faq-content-1">
+                            <p class="text-gray-500">
+                                Senswave can monitor virtually all types of textile manufacturing equipment including spinning machines, weaving looms, knitting machines, dyeing equipment, finishing machines, and more. Our sensors are adaptable to both modern computerized equipment and older mechanical machines.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg">
+                        <button class="w-full flex justify-between items-center p-6 focus:outline-none" onclick="toggleFAQ(2)">
+                            <h3 class="text-lg font-medium text-gray-900 text-left">How long does installation take?</h3>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300" id="faq-icon-2"></i>
+                        </button>
+                        <div class="px-6 pb-6 hidden" id="faq-content-2">
+                            <p class="text-gray-500">
+                                For a typical factory with 20-50 machines, installation is usually completed within 2-3 days. Our non-invasive sensors can be installed without disrupting your production schedule. Larger installations may take up to a week depending on the complexity and number of machines.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg">
+                        <button class="w-full flex justify-between items-center p-6 focus:outline-none" onclick="toggleFAQ(3)">
+                            <h3 class="text-lg font-medium text-gray-900 text-left">Is my data secure?</h3>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300" id="faq-icon-3"></i>
+                        </button>
+                        <div class="px-6 pb-6 hidden" id="faq-content-3">
+                            <p class="text-gray-500">
+                                Absolutely. Senswave uses enterprise-grade security with end-to-end encryption for all data transmission. Your factory data is stored in secure cloud servers with regular backups. We comply with all major industry security standards and can sign NDAs for sensitive operations.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg">
+                        <button class="w-full flex justify-between items-center p-6 focus:outline-none" onclick="toggleFAQ(4)">
+                            <h3 class="text-lg font-medium text-gray-900 text-left">What if I need to add more machines later?</h3>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300" id="faq-icon-4"></i>
+                        </button>
+                        <div class="px-6 pb-6 hidden" id="faq-content-4">
+                            <p class="text-gray-500">
+                                Senswave is designed for easy scalability. You can add machines at any time, and we'll provide additional sensors as needed. Your subscription can be upgraded to accommodate more machines, often with volume discounts for larger installations.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg">
+                        <button class="w-full flex justify-between items-center p-6 focus:outline-none" onclick="toggleFAQ(5)">
+                            <h3 class="text-lg font-medium text-gray-900 text-left">Do you provide training for our staff?</h3>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300" id="faq-icon-5"></i>
+                        </button>
+                        <div class="px-6 pb-6 hidden" id="faq-content-5">
+                            <p class="text-gray-500">
+                                Yes, we include comprehensive training as part of every installation. Our team will train your maintenance staff, operators, and managers on using the Senswave dashboard and interpreting the data. We also provide ongoing support and refresher training as needed.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <p class="text-gray-500">
+                        Still have questions? <a href="#contact" class="text-indigo-600 hover:text-indigo-800 font-medium">Contact our team</a> for more information.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h2 class="text-3xl font-extrabold sm:text-4xl mb-6">
+                        Ready to <span class="text-indigo-400">Transform</span> Your Factory?
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-8 max-w-md">
+                        Contact our IoT experts today to discuss how Senswave can optimize your textile manufacturing operations.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fas fa-phone-alt text-indigo-400 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium">Call Us</h4>
+                                <p class="text-gray-300 mt-1">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fas fa-envelope text-indigo-400 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium">Email Us</h4>
+                                <p class="text-gray-300 mt-1">sales@senswave.tech</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fas fa-map-marker-alt text-indigo-400 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium">Visit Us</h4>
+                                <p class="text-gray-300 mt-1">123 Industrial Park, Suite 450, Boston, MA 02110</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <h4 class="text-lg font-medium mb-4">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition duration-300">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition duration-300">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition duration-300">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition duration-300">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-12">
+                    <form class="bg-gray-800 p-8 rounded-xl shadow-xl">
+                        <h3 class="text-2xl font-bold mb-6">Send Us a Message</h3>
+                        <div class="mb-6">
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-400" placeholder="John Smith">
+                        </div>
+                        <div class="mb-6">
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-400" placeholder="john@yourcompany.com">
+                        </div>
+                        <div class="mb-6">
+                            <label for="company" class="block text-sm font-medium text-gray-300 mb-2">Company Name</label>
+                            <input type="text" id="company" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-400" placeholder="Your Textile Company">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-2">How Can We Help?</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-400" placeholder="Tell us about your factory and needs..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center">
+                            Send Message <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Product</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition duration-300">Features</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Demo</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Updates</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition duration-300">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Case Studies</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition duration-300">About</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Partners</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Connect</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <p class="text-sm text-gray-400">
+                        Subscribe to our newsletter for the latest updates.
+                    </p>
+                    <div class="mt-4 flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg bg-gray-700 text-white focus:outline-none w-full">
+                        <button class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-r-lg transition duration-300">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center">
+                    <div class="bg-indigo-600 text-white p-2 rounded-full">
+                        <i class="fas fa-industry text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold text-white ml-3">Senswave<span class="text-indigo-400">Pro</span></span>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <p class="text-sm text-gray-400">
+                        &copy; 2023 Senswave IoT Solutions. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Toggle FAQ items
+        function toggleFAQ(id) {
+            const content = document.getElementById(`faq-content-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Change tab in how it works section
+        function changeTab(tabNumber) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(`tab${tabNumber}`).classList.add('active');
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach((button, index) => {
+                if (index === tabNumber - 1) {
+                    button.classList.remove('bg-gray-200', 'text-gray-700');
+                    button.classList.add('bg-indigo-600', 'text-white');
+                } else {
+                    button.classList.remove('bg-indigo-600', 'text-white');
+                    button.classList.add('bg-gray-200', 'text-gray-700');
+                }
+            });
+
+            // Update step highlights
+            document.querySelectorAll('[id^="step"]').forEach((step, index) => {
+                if (index === tabNumber - 1) {
+                    step.classList.remove('opacity-70');
+                    step.querySelector('div').classList.remove('bg-gray-300', 'text-gray-600');
+                    step.querySelector('div').classList.add('bg-indigo-600', 'text-white');
+                    step.querySelector('h4').classList.remove('text-gray-700');
+                    step.querySelector('h4').classList.add('text-gray-900');
+                    step.querySelector('p').classList.remove('text-gray-500');
+                    step.querySelector('p').classList.add('text-gray-700');
+                } else {
+                    step.classList.add('opacity-70');
+                    step.querySelector('div').classList.remove('bg-indigo-600', 'text-white');
+                    step.querySelector('div').classList.add('bg-gray-300', 'text-gray-600');
+                    step.querySelector('h4').classList.remove('text-gray-900');
+                    step.querySelector('h4').classList.add('text-gray-700');
+                    step.querySelector('p').classList.remove('text-gray-700');
+                    step.querySelector('p').classList.add('text-gray-500');
+                }
+            });
+        }
+
+        // Initialize first tab as active
+        document.addEventListener('DOMContentLoaded', function() {
+            changeTab(1);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Form submission (example)
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! Our team will contact you shortly.');
+                this.reset();
+            });
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Counter animation for stats
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stats-counter');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / speed;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+
+        // Intersection Observer for counter animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.bg-indigo-600');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+
+        // Animate benefit counters
+        const benefitCounters = document.querySelectorAll('.counter');
+        benefitCounters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            
+            const updateCount = () => {
+                count += increment;
+                if (count < target) {
+                    counter.innerText = Math.floor(count);
+                    requestAnimationFrame(updateCount);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            
+            // Start animation when section is in view
+            const benefitObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateCount();
+                        benefitObserver
+</body>
+</html>
